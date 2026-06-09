@@ -1,159 +1,254 @@
-# NATURAL-LANGUAGE-TEXT-TO-SQL-USING-MCP.
-client name: internal company POC
+# 🚀 Natural Language Text-to-SQL Using MCP
 
+Transform plain English questions into SQL queries using the power of AI, Large Language Models (LLMs), and the Model Context Protocol (MCP).
 
-cursor = connection.cursor() is used in Python database programming.
-It creates a cursor object from the database connection.
-Simple Meaning:
-A cursor is like a helper/tool that allows Python to:
-run SQL queries
-fetch data from database
-insert/update/delete records
-Without a cursor, you cannot execute SQL commands.
+## 📖 Overview
 
+**Natural Language Text-to-SQL Using MCP** is an AI-powered application that enables users to interact with databases using natural language instead of writing SQL manually.
 
+The system interprets user questions, understands database schema context through MCP, generates optimized SQL queries, executes them, and returns human-readable results.
 
-# mcp_server.py :
-creates a API using FastAPI and SQLite.
-It has 2 API endpoints:
+### Example
 
-1. `/get_schema`
+**User Input**
 
-   * Connects to the database
-   * Gets all table names
-   * Fetches column names of each table
-   * Returns database schema in JSON format
+```text
+Show all employees whose salary is greater than 50000
+```
 
-2. `/run_sql`
+**Generated SQL**
 
-   * Accepts an SQL query from user
-   * Executes the query on database
-   * Returns query result (columns + rows)
-   * Handles errors using `try-except`
-
-Main components:
-
-* `sqlite3.connect()` → connects to database
-* `cursor()` → executes SQL queries
-* `fetchall()` → gets all data
-* `commit()` → saves changes
-* `close()` → closes database connection safely
-
-
-# mcp_client.py : 
-This is a complete **Text-to-SQL AI application** built using Streamlit, FastAPI, SQLite, and Google Gemini AI.
-
-## What it does:
-
-User asks question in normal English like:
-Show all students with marks greater than 90
-The AI agent:
-
-1. Gets database schema using API
-2. Understands tables and columns
-3. Generates SQL query
-4. Executes SQL using API
-5. Returns answer + SQL + table data in UI
+```sql
+SELECT * 
+FROM Employee
+WHERE salary > 50000;
+```
 
 ---
 
-## Main Parts
+## ✨ Features
 
-### 1. Environment Setup
-
-Loads API key using `.env`
-
-load_dotenv()
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
-
----
-
-### 2. API Tool Functions
-
-Calls backend FastAPI APIs:
-
-* `/get_schema` → fetch database structure
-* `/run_sql` → execute SQL query
+* 🧠 Natural Language to SQL Conversion
+* 🔗 MCP (Model Context Protocol) Integration
+* 🤖 LLM-Powered Query Generation
+* 📊 Database Schema Understanding
+* ⚡ Real-Time SQL Execution
+* 🛡️ SQL Validation and Error Handling
+* 📈 Structured Query Results
+* 🔍 Context-Aware Query Generation
+* 🏗️ Scalable and Modular Architecture
 
 ---
 
-### 3. MCP Agent
+## 🏛️ System Architecture
 
-`mcp_agent(question)` is the brain of the system.
-
-It:
-
-* sends prompt to Gemini
-* asks model to use tools
-* executes tool calls
-* retries on SQL errors
-* returns final result
-
-This is similar to an AI Agent / MCP workflow.
+```text
+User Query
+    │
+    ▼
+Natural Language Input
+    │
+    ▼
+MCP Server
+    │
+    ▼
+LLM Processing Layer
+    │
+    ▼
+SQL Query Generation
+    │
+    ▼
+Database Execution
+    │
+    ▼
+Result Formatting
+    │
+    ▼
+User Response
+```
 
 ---
 
-### 4. JSON Parsing
+## 🛠️ Tech Stack
 
-`safe_parse_json()` safely converts AI response text into JSON.
+| Technology                  | Purpose             |
+| --------------------------- | ------------------- |
+| Python                      | Core Development    |
+| MCP                         | Context Management  |
+| LangChain                   | LLM Orchestration   |
+| OpenAI / LLM APIs           | Query Generation    |
+| SQL                         | Database Operations |
+| SQLite / MySQL / PostgreSQL | Data Storage        |
+| FastAPI                     | API Development     |
+| Streamlit                   | User Interface      |
 
 ---
 
-### 5. Data Formatting
+## 📂 Project Structure
 
-Converts SQL output into Pandas DataFrame.
-
-pd.DataFrame()
+```text
+NATURAL-LANGUAGE-TEXT-TO-SQL-USING-MCP/
+│
+├── app/
+│   ├── agents/
+│   ├── database/
+│   ├── prompts/
+│   ├── tools/
+│   └── services/
+│
+├── data/
+│
+├── tests/
+│
+├── requirements.txt
+├── README.md
+└── main.py
+```
 
 ---
 
-### 6. Streamlit UI
+## ⚙️ Installation
 
-Creates frontend interface:
+### Clone Repository
 
-* input box
-* submit button
-* answer display
-* SQL display
-* data table display
+```bash
+git clone https://github.com/your-username/NATURAL-LANGUAGE-TEXT-TO-SQL-USING-MCP.git
+```
 
+### Navigate to Project
 
+```bash
+cd NATURAL-LANGUAGE-TEXT-TO-SQL-USING-MCP
+```
 
-## Overall Flow
+### Install Dependencies
 
-User Question
-     ↓
-Gemini AI Agent
-     ↓
-Get Schema API
-     ↓
-Generate SQL
-     ↓
-Run SQL API
-     ↓
-Show Result in Streamlit
+```bash
+pip install -r requirements.txt
+```
 
-This is a simple AI-powered Text-to-SQL system using MCP-style tool calling architecture.
+### Run Application
 
-| Library               | Purpose       |
-| --------------------- | ------------- |
-| `streamlit`           | UI            |
-| `requests`            | API calls     |
-| `pandas`              | DataFrame     |
-| `json`                | JSON handling |
-| `dotenv`              | Load API keys |
-| `google.generativeai` | Gemini model  |
+```bash
+python main.py
+```
 
+---
 
-Client Request
-      ↓
-Receive SQL Query
-      ↓
-Connect Database
-      ↓
-Execute Query
-      ↓
-Fetch Rows
-      ↓
-Return JSON Response
+## 🎯 Use Cases
+
+* Business Intelligence
+* Data Analytics
+* Database Exploration
+* Enterprise Reporting
+* Educational SQL Learning
+* Self-Service Data Querying
+* AI-Powered Data Assistants
+
+---
+
+## 📸 Sample Queries
+
+### Query 1
+
+```text
+List all customers from Pune.
+```
+
+Generated SQL:
+
+```sql
+SELECT *
+FROM Customers
+WHERE city = 'Pune';
+```
+
+### Query 2
+
+```text
+Show top 5 highest paid employees.
+```
+
+Generated SQL:
+
+```sql
+SELECT *
+FROM Employee
+ORDER BY salary DESC
+LIMIT 5;
+```
+
+### Query 3
+
+```text
+Count total orders placed this month.
+```
+
+Generated SQL:
+
+```sql
+SELECT COUNT(*)
+FROM Orders
+WHERE MONTH(order_date)=MONTH(CURRENT_DATE);
+```
+
+---
+
+## 🔮 Future Enhancements
+
+* Multi-Database Support
+* Query Visualization
+* Interactive Dashboard
+* Voice-to-SQL Interface
+* Fine-Tuned SQL Models
+* Query Optimization Engine
+* Role-Based Access Control
+* Advanced Analytics Integration
+
+---
+
+## 🏆 Learning Outcomes
+
+This project demonstrates:
+
+* Generative AI Applications
+* Large Language Models (LLMs)
+* Prompt Engineering
+* Model Context Protocol (MCP)
+* Natural Language Processing (NLP)
+* SQL Query Generation
+* Database Integration
+* AI Agent Development
+
+---
+
+## 👨‍💻 Author
+
+**Gahininath Wagh**
+
+* Python Developer
+* AI & Machine Learning Enthusiast
+* Generative AI Developer
+
+GitHub: https://github.com/Gahininat
+
+---
+
+## ⭐ Support
+
+If you found this project useful:
+
+* ⭐ Star the repository
+* 🍴 Fork the project
+* 🐛 Report issues
+* 🤝 Contribute improvements
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+### "Making Databases Conversational with AI and MCP" 🚀
