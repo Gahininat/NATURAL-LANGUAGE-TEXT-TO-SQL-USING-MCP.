@@ -1,5 +1,5 @@
 # NATURAL-LANGUAGE-TEXT-TO-SQL-USING-MCP.
-client name: company intrnal poc
+client name: internal company POC
 
 
 cursor = connection.cursor() is used in Python database programming.
